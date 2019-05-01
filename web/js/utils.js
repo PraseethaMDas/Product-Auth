@@ -192,8 +192,9 @@ async function init_web3() {
         web3 = new Web3(web3.currentProvider) // what Metamask injected 
     } else {
         // Instantiate and set Ganache as your provider
-        web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:7545"));
+        web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
     }
+    console.log(web3.version);
     //Load accounts
     window.accounts = await web3.eth.getAccounts()
     console.log("Loaded accounts")
@@ -353,7 +354,7 @@ async function init_web3() {
         }
     ])
 
-    window.pm.options.address = '0x41e043c37AAffD0b9EDA4E0151Ccdc23f1c33Ad6'
+    window.pm.options.address = '0xBeE3282A684Bce88a8bbF8a522a47849280d197d'
 
     window.co = new web3.eth.Contract([
         {
@@ -497,7 +498,7 @@ async function init_web3() {
             "signature": "0xac814490"
         }
     ])
-    window.co.options.address = "0x3f81fd7aD1D9552757ef2731E462c5fde0549688"
+    window.co.options.address = "0x3Ec4126826A24Afe831ef3d7Ba31637e33881d14"
 }
 
 async function getOwnerHistoryFromEvents(event, p_hash) {

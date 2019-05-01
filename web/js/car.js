@@ -50,6 +50,7 @@ window.onload = async function () {
             console.log(serial)
             console.log(part_array)
             console.log(creation_date)
+            console.log(window.accounts[0])
             //Finally, build the car
             window.pm.methods.buildProduct(serial, "Car", creation_date, part_array).send({ from: window.accounts[0], gas: 2000000 }, function (error, result) {
                 if (error) {

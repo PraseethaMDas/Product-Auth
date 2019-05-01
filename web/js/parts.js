@@ -1,9 +1,19 @@
-import { clearDetails, partListManager, carPartListManager, addItemToList, format_date, getActivePart, init_web3 } from "./utils.js"
+import { clearDetails, partListManager, carPartListManager, addItemToList, format_date, getActivePart, init_web3, getOwnerHistoryFromEvents, getOwnedItemsFromEvent } from "./utils.js"
 
 window.onload = async function () {
 
     var x = await init_web3()
-
+    //Get all the parts that belonged to this factory and then check the ones that still do
+    var parts = await getOwnedItemsFromEvent(window.accounts[0], 'TransferPartOwnership')
+    console.log(parts)
+    for (var i = 0; i < parts.length; i++) {
+        var owners = await getOwnerHistoryFromEvents('TransferPartOwnership', parts[i])
+        console.log(owners)
+        if (owners[owners.length - 1] == window.accounts[0]) {
+            addItemToList(parts[i], "part-list", partListManager)
+        }
+    }
+    
     document.getElementById("build-part").addEventListener("click", function () {
         console.log("Create Part")
         // Get required data and create part on blockchain using web3
